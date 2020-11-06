@@ -1,0 +1,1 @@
+function consolidation_semantique = consolidation_sem
