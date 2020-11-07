@@ -1,6 +1,6 @@
 function consolidation_semantique = consolidation_sem
 
-banque_mot = ["talège","ledompe","sanenla" ]; %banque mot
+banque_mot = ["talège","ledompe","sanenla" ]; %banque mot, va voir ce lien pour générer des non-mots : http://www.fredericboutot.com/
 images = 
 myFolder = 'C:\Users\Dylan\Desktop\UdeM A20\programamation en Nsc cogni\images'; % variable pour le folder avec les images
 imread(myFolder);
