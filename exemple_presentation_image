@@ -1,0 +1,43 @@
+clc;
+clear all;
+close all;
+
+screens=Screen('Screens');
+screenNumber=max(screens);
+
+%This command seeds the random number generator so any generated numbers are truly "random"
+rng('shuffle');
+
+%Tells Screen to skip any synchronization tests. Ideally, you actually want to leave this line out. 
+%However, it will most likely take you a lot of hardware tweaking to get your system to run without this command.
+Screen('Preference','SkipSyncTests',1);
+
+[window,window_size] = Screen('OpenWindow',screenNumber,[0 0 0],[],32,2);
+
+%importer l'image de 'pomme'
+pomme_image = imread('pomme.jpg');
+pomme_image_resize = imresize(pomme_image,0.2);
+
+[ySize xSize col] = size(pomme_image);
+xSize=xSize/2;
+ySize=ySize/2;
+pomme_image=imresize(pomme_image,[xSize ySize]);
+imRect = [0 0 xSize ySize];
+resolutions = Screen('Resolutions', screenNumber);
+xx=resolutions.width;
+yy=resolutions.height;
+
+%dessiner la texture de 'pomme'
+pomme_texture = Screen('MakeTexture',window,pomme_image_resize);
+
+Screen('DrawTexture',window,pomme_texture,[],[]);
+
+%The flip command takes everything that has been drawn and actually pushes it to the display. 
+%Without the flip command the images you draw will remain offscreen!
+Screen('Flip',window);
+
+%Attendre qu'on appuie sur une touche pour quitter
+KbStrokeWait;
+
+%It is very important to always end a script with this command if drawing is involved to send control of the screen back to MATLAB.
+Screen('CloseAll');
