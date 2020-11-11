@@ -1,10 +1,21 @@
 function consolidation_semantique = consolidation_sem(condition)
 
+clc;
+clear all;
+close all;
+
+%Ouvre une boîte de dialogue qui demande les informations du participant
+%dans l'optique de stocker ses réponses avec ses informations à des fins d'analyse
 prompt = ({'Code de participant:','Âge:'});
 dlgtitle = 'Information du participant';
 dims = [1 40; 1 40]
 info_participant = inputdlg(prompt,dlgtitle,dims)
 
-if 
-veteur_non_mots = ["tâfethor" "nognurel" "sarybêt" "lenêcheg" "gecolêt" "gugareg" "labèlel" "ramomet" "gasafod" "yarevat" "lêmobur" "ceduphèc" "cosonem" "botamom" "fanisîr" "quytamaf" "cynofép" "poçamec" "kasifoc" "cémacèm"];
-image_mat = ["bleuet.jpg","brocheuse.jpg","brocoli.jpg","brocheuse.jpg","cafe.jpg","canape.jpg","carotte.jpg","ciseaux.jpg","fourmi.jpg","giraffe.jpg","kiwi.jpg","lion.jpg","mojito.jpg","paresseux.jpg","pizza.jpg","stylo.jpg","succulente.jpg","tennis.jpg","velo.jpg"];
+%Si la condition est '1', voici ce que la fonction exécutera:
+% -> Présenter une paire non-mot + image, une à la fois à l’écran
+% -> Après 5 secondes, la paire non-mot + image change pour la prochaine
+if condition == 1
+    veteur_non_mots = ["tâfethor" "nognurel" "sarybêt" "lenêcheg" "gecolêt" "gugareg" "labèlel" "ramomet" "gasafod" "yarevat" "lêmobur" "ceduphèc" "cosonem" "botamom" "fanisîr" "quytamaf" "cynofép" "poçamec" "kasifoc" "cémacèm"];
+    image_mat = ["bleuet.jpg","brocheuse.jpg","brocoli.jpg","brocheuse.jpg","cafe.jpg","canape.jpg","carotte.jpg","ciseaux.jpg","fourmi.jpg","giraffe.jpg","kiwi.jpg","lion.jpg","mojito.jpg","paresseux.jpg","pizza.jpg","stylo.jpg","succulente.jpg","tennis.jpg","velo.jpg"];
+    
+    
