@@ -1,43 +1,44 @@
-clc;
-clear all;
-close all;
+veteur_non_mots = ["tâfethor" "sarybêt" "lenêcheg" "gecolêt" "gugareg" "labèlel" "ramomet" "gasafod" "yarevat" "lêmobur" "ceduphèc" "cosonem" "botamom" "fanisîr" "cynofép" "poçamec" "kasifoc" "cémacèm"];
+m_cat_fam = ["Bureau" "Animal" "Sport" "Plante" "Breuvage" "Fruit" "Insecte" "Légume" "Meuble"];
+m_cat_unfam = ["Instrument de musique" "Véhicule" "Poisson" "Art" "Arme" "Outil" "Bâtiment" "Vêtement"];
+
+%word_presented = vecteur_non_mots
 
 screens=Screen('Screens');
 screenNumber=max(screens);
 
-%This command seeds the random number generator so any generated numbers are truly "random"
-rng('shuffle');
-
-%Tells Screen to skip any synchronization tests. Ideally, you actually want to leave this line out. 
-%However, it will most likely take you a lot of hardware tweaking to get your system to run without this command.
 Screen('Preference','SkipSyncTests',1);
+    
+white = WhiteIndex(screenNumber);
+    
+[window,windowRect] = Screen('OpenWindow',screenNumber,[0 0 0]);
+    
+%Screen('BlendFunction', window, 'GL_SRC_ALPHA', 'GL_ONE_MINUS_SRC_ALPHA');
+    
+%Remove Cursor from screen during experiment
+HideCursor;
+    
+%Taille de l'écran en pixels
+[screenXpixels, screenYpixels] = Screen('WindowSize', window);
+%Centre de l'écran
+[xCenter, yCenter] = RectCenter(windowRect);
 
-[window,window_size] = Screen('OpenWindow',screenNumber,[0 0 0],[],32,2);
+%Morceau pour format le font et le size, puis pour enregistrer le mot à
+%présenter (position, couleur également)
+Screen('TextSize', window, 90);
+Screen('TextFont', window, 'Times'); 
+%Non-mot présenté initialement qui est représenté à nouveau en bas au
+%centre en blanc
+DrawFormattedText(window,'Tâfethor','center',screenYpixels * 0.75,white,windowRect);
 
-%importer l'image de 'pomme'
-pomme_image = imread('pomme.jpg');
-pomme_image_resize = imresize(pomme_image,0.2);
+DrawFormattedText(window,'Bureau',screenXpixels * 0.18,screenYpixels * 0.25,white,windowRect);
 
-[ySize xSize col] = size(pomme_image);
-xSize=xSize/2;
-ySize=ySize/2;
-pomme_image=imresize(pomme_image,[xSize ySize]);
-imRect = [0 0 xSize ySize];
-resolutions = Screen('Resolutions', screenNumber);
-xx=resolutions.width;
-yy=resolutions.height;
-
-%dessiner la texture de 'pomme'
-pomme_texture = Screen('MakeTexture',window,pomme_image_resize);
-
-Screen('DrawTexture',window,pomme_texture,[],[]);
+DrawFormattedText(window,'Insecte',screenXpixels * 0.68,screenYpixels * 0.25,white,windowRect);
 
 %The flip command takes everything that has been drawn and actually pushes it to the display. 
 %Without the flip command the images you draw will remain offscreen!
 Screen('Flip',window);
 
-%Attendre qu'on appuie sur une touche pour quitter
 KbStrokeWait;
 
-%It is very important to always end a script with this command if drawing is involved to send control of the screen back to MATLAB.
 Screen('CloseAll');
